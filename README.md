@@ -1,5 +1,15 @@
 # Jupyterhub singleuser image for the scikit-learn mooc
 
+## Usage
+
+In your jupyterhub `config.yaml`
+```yaml
+singleuser:
+  image:
+    name: brospars/singleuser-scikit-learn-mooc
+    tag: latest
+```
+
 ## Build and publish
 
 ```shell
