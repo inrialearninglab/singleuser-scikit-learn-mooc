@@ -5,13 +5,14 @@
 Test locally 
 
 ```shell
-# As normal user
+# Build
 docker build -t brospars/singleuser-scikit-learn-mooc:latest .
-docker run -p 8888:8888 brospars/singleuser-scikit-learn-mooc:latest
+
+# As normal user
+docker run -p 8888:8888 brospars/singleuser-scikit-learn-mooc:latest /bin/bash -c "cp -rup /tmp/home/* /home/jovyan; cp -rup /tmp/custom /home/jovyan/.jupyter; jupyter notebook;"
 
 # As root
-docker build -t brospars/singleuser-scikit-learn-mooc:root .
-docker run -p 8888:8888 brospars/singleuser-scikit-learn-mooc:root /bin/bash -c "jupyter notebook --allow-root"
+docker run --user=root -p 8888:8888 brospars/singleuser-scikit-learn-mooc:root /bin/bash -c "cp -rup /tmp/home/* /home/jovyan; cp -rup /tmp/custom /home/jovyan/.jupyter; jupyter notebook --allow-root"
 ```
 
 In your jupyterhub `config.yaml`
@@ -25,7 +26,8 @@ singleuser:
 ## Build and publish
 
 ```shell
-docker build -t brospars/singleuser-scikit-learn-mooc:latest  -t brospars/singleuser-scikit-learn-mooc:vX.X .
+VERSION=$(git tag --sort=committerdate | tail -1)
+docker build -t brospars/singleuser-scikit-learn-mooc:latest  -t brospars/singleuser-scikit-learn-mooc:$VERSION .
 docker push brospars/singleuser-scikit-learn-mooc:latest
-docker push brospars/singleuser-scikit-learn-mooc:vX.X
+docker push brospars/singleuser-scikit-learn-mooc:$VERSION
 ```

@@ -30,6 +30,3 @@ RUN jupyter serverextension enable --py nbreset ; \
 COPY init_notebooks.py /srv/init_notebooks.py
 # Preload notebooks in tmp directory
 RUN mkdir /tmp/home; NOTEBOOK_DIR=/tmp/home python /srv/init_notebooks.py
-
-# To allow root locally
-USER root
