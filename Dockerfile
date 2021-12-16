@@ -1,5 +1,13 @@
 FROM jupyter/scipy-notebook
 
+# Add custom nbreset extension
+ADD nb-reset /srv/nb-reset
+RUN python3 -m pip install --no-cache /srv/nb-reset
+
+# Install custom nbreset extension
+USER root
+RUN jupyter nbextension install --py nbreset ;
+
 # Run as jovyan (default user)
 USER jovyan
 
@@ -11,19 +19,17 @@ RUN wget https://raw.githubusercontent.com/INRIA/scikit-learn-mooc/master/requir
 RUN python3 -m pip install --no-cache -r requirements.txt
 
 # Custom javascript
-COPY custom /home/jovyan/.jupyter/custom
+COPY custom /tmp/custom
 
-# Add custom nbreset extension
-ADD nb-reset /srv/nb-reset
-RUN python3 -m pip install --no-cache /srv/nb-reset
-RUN jupyter serverextension enable --py nbreset ; \
-    jupyter nbextension install --py nbreset ; \
-    jupyter nbextension enable --py nbreset
-
-# Enable
+# Enable extensions
 RUN jupyter serverextension enable --py nbgitpuller --sys-prefix
+RUN jupyter serverextension enable --py nbreset ; \
+    jupyter nbextension enable --py nbreset
 
 # Add init notebooks script
 COPY init_notebooks.py /srv/init_notebooks.py
 # Preload notebooks in tmp directory
-RUN mkdir /tmp/work; NOTEBOOK_DIR=/tmp/work python /srv/init_notebooks.py
+RUN mkdir /tmp/home; NOTEBOOK_DIR=/tmp/home python /srv/init_notebooks.py
+
+# To allow root locally
+USER root

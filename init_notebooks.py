@@ -47,19 +47,19 @@ def main():
         with urllib.request.urlopen(notebook_list_url) as content:
             data = json.loads(content.read().decode())
 
-            # Create /work/notebooks
+            # Create /notebooks
             if not os.path.exists(os.path.join(notebook_dir, 'notebooks')):
                 os.mkdir(os.path.join(notebook_dir, 'notebooks'))
 
-            # Create /work/wrapups
+            # Create /wrapups
             if not os.path.exists(os.path.join(notebook_dir, 'wrapups')):
                 os.mkdir(os.path.join(notebook_dir, 'wrapups'))
 
-            # Create /work/datasets
+            # Create /datasets
             if not os.path.exists(os.path.join(notebook_dir, 'datasets')):
                 os.mkdir(os.path.join(notebook_dir, 'datasets'))
 
-            # Create /work/figures
+            # Create /figures
             if not os.path.exists(os.path.join(notebook_dir, 'figures')):
                 os.mkdir(os.path.join(notebook_dir, 'figures'))
 

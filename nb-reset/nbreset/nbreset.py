@@ -10,7 +10,7 @@ def _build_msg_json(**kwargs):
     return dict(**kwargs)
 
 
-os.chdir('/home/jovyan/work')
+os.chdir('/home/jovyan')
 
 
 class NbResetHandler(IPythonHandler):
@@ -38,7 +38,7 @@ class NbResetHandler(IPythonHandler):
 class NbResetAllHandler(IPythonHandler):
     @web.authenticated
     def post(self):
-        folder = '/home/jovyan/work'
+        folder = '/home/jovyan'
         for filename in os.listdir(folder):
             file_path = os.path.join(folder, filename)
             try:
