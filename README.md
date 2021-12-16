@@ -13,6 +13,7 @@ singleuser:
 ## Build and publish
 
 ```shell
-docker build -t brospars/singleuser-scikit-learn-mooc:latest .
+docker build -t brospars/singleuser-scikit-learn-mooc:latest  -t brospars/singleuser-scikit-learn-mooc:vX.X .
 docker push brospars/singleuser-scikit-learn-mooc:latest
+docker push brospars/singleuser-scikit-learn-mooc:vX.X
 ```
