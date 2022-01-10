@@ -34,7 +34,7 @@ def add_nb_metadata(notebook_path, notebook_url):
 
 def main():
     # Url of the json files that lists all the needed content
-    base_url = 'https://gist.githubusercontent.com/brospars/c86986af126c17d3ede848b11e3a5a65/raw/180ebcf78b1f920653ec5e8d36bee3ffbd4b4cee/'
+    base_url = 'https://gist.githubusercontent.com/brospars/c86986af126c17d3ede848b11e3a5a65/raw/3ce0090580119870b783b8de06d5ab82d0472823/'
     notebook_list_url = base_url + 'notebooks.json'
 
     notebook_dir = os.environ.get('NOTEBOOK_DIR')
