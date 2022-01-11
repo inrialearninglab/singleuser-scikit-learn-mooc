@@ -2,7 +2,7 @@ FROM jupyter/scipy-notebook
 
 # Add custom nbreset extension
 ADD nb-reset /tmp/nb-reset
-RUN python3 -m pip install --no-cache /tmp/nb-reset
+RUN python3 -m pip install --no-cache --user /tmp/nb-reset
 
 # Install custom nbreset extension
 USER root
