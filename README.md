@@ -26,6 +26,9 @@ singleuser:
 ## Build and publish
 
 ```shell
+# Optional : prebuild nbreset
+(cd nb-reset && python setup.py sdist bdist_wheel)
+
 VERSION=$(git tag --sort=committerdate | tail -1)
 docker build -t brospars/singleuser-scikit-learn-mooc:latest  -t brospars/singleuser-scikit-learn-mooc:$VERSION .
 docker push brospars/singleuser-scikit-learn-mooc:latest
