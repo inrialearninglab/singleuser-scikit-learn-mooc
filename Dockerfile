@@ -1,8 +1,8 @@
 FROM jupyter/scipy-notebook
 
 # Add custom nbreset extension
-ADD nb-reset /srv/nb-reset
-RUN python3 -m pip install --no-cache /srv/nb-reset
+ADD ./nb-reset/dist/nbreset-0.0.1-py3-none-any.whl /srv/nbreset-0.0.1-py3-none-any.whl
+RUN python3 -m pip install /srv/nbreset-0.0.1-py3-none-any.whl
 
 # Install custom nbreset extension
 USER root
