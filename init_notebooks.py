@@ -52,8 +52,8 @@ def main():
                 os.mkdir(os.path.join(notebook_dir, 'notebooks'))
 
             # Create /notebooks/helpers
-            if not os.path.exists(os.path.join(notebook_dir, 'helpers')):
-                os.mkdir(os.path.join(notebook_dir, 'helpers'))
+            if not os.path.exists(os.path.join(notebook_dir, 'notebooks', 'helpers')):
+                os.mkdir(os.path.join(notebook_dir, 'notebooks', 'helpers'))
 
             # Create /datasets
             if not os.path.exists(os.path.join(notebook_dir, 'datasets')):
@@ -70,9 +70,9 @@ def main():
             nb_guide_path = os.path.join(notebook_dir, 'notebooks', 'JupyterNotebookGuide.ipynb')
             download_entries.append((nb_guide_path, nb_guide_url))
 
-            # Add notebookd
+            # Add notebooks
             for notebook in data['notebooks']:
-                nb_path = os.path.join(notebook_dir, 'notebooks', os.path.basename(notebook))
+                nb_path = os.path.join(notebook_dir, os.path.dirname(notebook), os.path.basename(notebook))
                 download_entries.append((nb_path, data['baseUrl'] + notebook))
             # Add datasets
             for dataset in data['datasets']:
