@@ -51,6 +51,10 @@ def main():
             if not os.path.exists(os.path.join(notebook_dir, 'notebooks')):
                 os.mkdir(os.path.join(notebook_dir, 'notebooks'))
 
+            # Create /notebooks/helpers
+            if not os.path.exists(os.path.join(notebook_dir, 'helpers')):
+                os.mkdir(os.path.join(notebook_dir, 'helpers'))
+
             # Create /datasets
             if not os.path.exists(os.path.join(notebook_dir, 'datasets')):
                 os.mkdir(os.path.join(notebook_dir, 'datasets'))
