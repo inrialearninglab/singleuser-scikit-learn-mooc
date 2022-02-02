@@ -51,10 +51,6 @@ def main():
             if not os.path.exists(os.path.join(notebook_dir, 'notebooks')):
                 os.mkdir(os.path.join(notebook_dir, 'notebooks'))
 
-            # Create /wrapups
-            if not os.path.exists(os.path.join(notebook_dir, 'wrapups')):
-                os.mkdir(os.path.join(notebook_dir, 'wrapups'))
-
             # Create /datasets
             if not os.path.exists(os.path.join(notebook_dir, 'datasets')):
                 os.mkdir(os.path.join(notebook_dir, 'datasets'))
@@ -89,7 +85,7 @@ def main():
 
             # Create empty wrapups
             for wrapup in data['wrapups']:
-                wrapup_path = os.path.join(notebook_dir, 'wrapups', os.path.basename(wrapup))
+                wrapup_path = os.path.join(notebook_dir, 'notebooks', os.path.basename(wrapup))
                 if not (os.path.exists(wrapup_path)):
                     # Create empty notebook
                     with open(wrapup_path, "w") as wrapup_nb:
