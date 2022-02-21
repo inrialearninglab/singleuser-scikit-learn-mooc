@@ -1,4 +1,6 @@
 .secrets
 nb-reset/build
 nb-reset/nbreset.egg-info
+build/
+dist/
 
