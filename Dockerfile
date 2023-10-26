@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook
+FROM jupyter/scipy-notebook:notebook-6.5.4
 
 # Add custom nbreset extension
 ADD ./nb-reset/dist/nbreset-0.0.1-py3-none-any.whl /srv/nbreset-0.0.1-py3-none-any.whl
@@ -6,7 +6,7 @@ RUN python3 -m pip install /srv/nbreset-0.0.1-py3-none-any.whl
 
 # Install custom nbreset extension
 USER root
-RUN jupyter nbextension install --py nbreset ;
+RUN jupyter nbextension install --py nbreset
 
 # Run as jovyan (default user)
 USER jovyan

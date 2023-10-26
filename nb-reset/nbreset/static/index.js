@@ -117,6 +117,43 @@ define([
         });
     };
 
+    var nbresetdatasets = function () {
+        dialog.modal({
+            title: "Reset datasets to original",
+            keyboard_manager: IPython.notebook.keyboard_manager,
+            body: "This will undo all your modifications on the datasets",
+            buttons : {
+                "Cancel": {},
+                "OK": {
+                    class: "btn-primary",
+                    click: function () {
+                        loader('show');
+
+                        var data = {
+                            _xsrf : getCookie('_xsrf')
+                        };
+
+                        var nbresetUrl = utils.url_path_join(utils.get_body_data('baseUrl'), 'nbresetdatasets');
+                        $.post(nbresetUrl, data, function (data) {
+                            loader('hide');
+                        });
+                    }
+                }
+            },
+            open : function (event, ui) {
+                var that = $(this);
+                // Upon ENTER, click the OK button.
+                that.find('input[type="text"]').keydown(function (event, ui) {
+                    if (event.which === 13) {
+                        that.find('.btn-primary').first().click();
+                        return false;
+                    }
+                });
+                that.find('input[type="text"]').focus().select();
+            }
+        });
+    }
+
     var init_buttons = function () {
         var $running_notebooks_button = $('' +
             '<li id="running_notebooks" role="none" title="See all running notebooks">' +
@@ -128,17 +165,24 @@ define([
             '  <a href="#" role="menuitem">Reset all to original</a>' +
             '</li>'
         );
+        var $reset_all_datasets_button = $('' +
+            '<li id="reset_all_datasets" role="none" title="Reset all datasets to their original content">' +
+            '  <a href="#" role="menuitem">Reset all datasets</a>' +
+            '</li>'
+        );
         var $reset_button = $('' +
             '<li id="reset_to_original" role="none" title="Reset this notebook to its original content">' +
             '  <a href="#" role="menuitem">Reset to original</a>' +
             '</li>'
         );
+        $reset_all_datasets_button.insertAfter('#restore_checkpoint');
         $reset_all_button.insertAfter('#restore_checkpoint');
         $reset_button.insertAfter('#restore_checkpoint');
         $running_notebooks_button.insertAfter('#restore_checkpoint');
 
         $reset_all_button.click(nbresetall);
         $reset_button.click(nbreset);
+        $reset_all_datasets_button.click(nbresetdatasets);
     };
 
     var load_ipython_extension = function () {

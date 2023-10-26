@@ -58,4 +58,20 @@ class NbResetAllHandler(IPythonHandler):
         self.flush()
 
 
+class NbResetDatasetsHandler(IPythonHandler):
+    @web.authenticated
+    def post(self):
+        folder = '/home/jovyan'
+        try:
+            shutil.rmtree(folder + '/datasets') 
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+        
+        result = subprocess.run(['python', '/srv/init_notebooks.py'], env=dict(os.environ, NOTEBOOK_DIR=folder))
+        if result.returncode != 0:
+            msg_json = _build_msg_jsonf(title="Reset error", body="Something went wrong")
+        else:
+            msg_json = _build_msg_json(title="Reset successful", body="Datasets have been reset")
 
+        self.write(msg_json)
+        self.flush()
