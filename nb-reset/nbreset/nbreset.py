@@ -39,15 +39,12 @@ class NbResetAllHandler(IPythonHandler):
     @web.authenticated
     def post(self):
         folder = '/home/jovyan'
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path) and os.path.basename(file_path) != 'wrapups':
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
+        try:
+            shutil.rmtree(folder + '/datasets')
+            shutil.rmtree(folder + '/figures')
+            shutil.rmtree(folder + '/notebooks')
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
         result = subprocess.run(['python', '/srv/init_notebooks.py'], env=dict(os.environ, NOTEBOOK_DIR=folder))
         if result.returncode != 0:
